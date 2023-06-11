@@ -4,8 +4,7 @@ This document explains how to deploy the Vue.js application and how to configure
 # Prerequisites
 To deploy this application, you must have the following tools and versions installed on your system:
 
-- Node.js v18.16.0 NPM (comes bundled with Node.js).
-- Python 3.8
+- Node.js v18.16.0 NPM (comes bundled with Node.js)
 - Vue 3.3.8
 
 # Environment variables
