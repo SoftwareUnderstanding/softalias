@@ -1,43 +1,43 @@
-<h1 align="center"> Despliegue de la aplicación Vue.js </h1>
-Este documento explica cómo desplegar la aplicación Vue.js y cómo configurar el archivo de variables de entorno .env.
+<h1 align="center"> Deploying the Vue.js application </h1>.
+This document explains how to deploy the Vue.js application and how to configure the .env environment variables file.
 
-# Requisitos previos
-Para desplegar esta aplicación, debes tener instaladas las siguientes herramientas y versiones en tu sistema:
+# Prerequisites
+To deploy this application, you must have the following tools and versions installed on your system:
 
-- Node.js v18.16.0 NPM (viene incluido con Node.js)
+- Node.js v18.16.0 NPM (comes bundled with Node.js).
 - Python 3.8
 - Vue 3.3.8
 
-# Variables de entorno
-Las variables de entorno son utilizadas para definir valores que varían entre los entornos de desarrollo, pruebas, producción, etc. En este proyecto, se utilizan las siguientes variables:
+# Environment variables
+Environment variables are used to define values that vary between development, test, production, etc. environments. In this project, the following variables are used:
 
-- VUE_APP_HOST: Especifica el nombre de host donde se desplegará la aplicación Vue.js. Por defecto es localhost, que significa que la aplicación se ejecutará en tu máquina local. Si necesitas desplegarla en otro servidor, debes cambiar este valor al nombre del host de ese servidor.
-- PORT: Este es el puerto en el que se ejecutará la aplicación. Por defecto es 9990, pero puede ser cualquier puerto que no esté actualmente en uso en tu sistema.
-- VUE_APP_ENDPOINT_URL_DB: Esta es la URL del punto final (endpoint) de tu base de datos. Aquí la aplicación buscará datos. Debe ser cambiada a la URL de tu base de datos.
+- VUE_APP_HOST: Specifies the hostname where the Vue.js application will be deployed. The default is localhost, which means that the application will run on your local machine. If you need to deploy it on another server, you must change this value to the hostname of that server.
+- PORT: This is the port on which the application will run. By default it is 9990, but it can be any port that is not currently in use on your system.
+- VUE_APP_ENDPOINT_URL_DB: This is the URL of your database endpoint. This is where the application will look for data. It should be changed to your database URL.
 
-# Configuración del entorno
-Las variables de entorno están guardadas en un archivo llamado .env en la raíz del proyecto. Para cambiar los valores, debes seguir estos pasos:
+# Environment settings
+The environment variables are stored in a file called .env in the root of the project. To change the values, you must follow these steps:
 
-1. Abre el archivo '.env' en tu editor de texto preferido.
-2. Cambia los valores de las variables a lo que necesitas para tu entorno.
-3. Guarda y cierra el archivo '.env'.
-4. Reinicia tu aplicación para que los cambios tengan efecto.
+1. Open the '.env' file in your preferred text editor.
+2. Change the values of the variables to what you need for your environment.
+3. Save and close the '.env' file.
+4. Restart your application for the changes to take effect.
 
-# Correr la aplicación en local
-Para correr la aplicación en local, sigue estos pasos:
+# Running the application locally
+To run the application locally, follow these steps:
 
-1. Abre una terminal en la raíz del proyecto.
-2. Ejecuta 'npm install' para instalar todas las dependencias del proyecto.
-3. Configura tu archivo '.env' como se explicó en la sección anterior.
-4. Ejecuta 'npm run serve' para iniciar la aplicación.
-5. La aplicación ahora debería estar ejecutándose en http://<VUE_APP_HOST>:<PORT>, por ejemplo http://localhost:9990.
+1. Open a terminal in the root of the project.
+2. Run 'npm install' to install all the project dependencies.
+3. Configure your '.env' file as explained in the previous section.
+4. Run 'npm run serve' to start the application.
+5. The application should now be running on http://<VUE_APP_HOST>:<PORT>, for example http://localhost:9990.
 
-# Desplegar la aplicación en un servidor
-Para desplegar la aplicación en un servidor, deberás crear una versión de producción de la aplicación y luego transferir los archivos a tu servidor. Aquí te dejo los pasos:
+# Deploy the application to a server
+To deploy the application to a server, you will need to create a production version of the application and then transfer the files to your server. Here are the steps:
 
-1. Abre una terminal en la raíz del proyecto.
-2. Ejecuta 'npm install' para instalar todas las dependencias del proyecto.
-3. Configura tu archivo '.env' como se explicó en la sección anterior.
-4. Ejecuta 'npm run build' para crear una versión de producción de la aplicación. Esto creará una carpeta dist en tu proyecto con todos los archivos necesarios.
-5. Copia la carpeta 'dist' a tu servidor. La ubicación exacta y el método para hacerlo dependerán de tu servidor.
-6. En tu servidor, deberás configurar tu servidor web para servir los archivos en la carpeta 'dist'. Esto también dependerá de tu servidor web.
+1. Open a terminal in the root of the project.
+2. Run 'npm install' to install all the project dependencies.
+3. Configure your '.env' file as explained in the previous section.
+4. Run 'npm run build' to create a production version of the application. This will create a dist folder in your project with all the necessary files.
+5. Copy the 'dist' folder to your server. The exact location and method of doing this will depend on your server.
+6. On your server, you will need to configure your web server to serve the files in the 'dist' folder. This will also depend on your web server.
