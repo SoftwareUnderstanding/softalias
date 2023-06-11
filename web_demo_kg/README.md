@@ -15,6 +15,21 @@ Environment variables are used to define values that vary between development, t
 - PORT: This is the port on which the application will run. By default it is 9990, but it can be any port that is not currently in use on your system.
 - VUE_APP_ENDPOINT_URL_DB: This is the URL of your database endpoint. This is where the application will look for data. It should be changed to your database URL.
 
+# Configuring the database
+For the application to work properly, you will need to have a database configured with the appropriate knowledge networks.
+
+The knowledge networks can be found at the following Zenodo link: https://zenodo.org/record/7988427#.ZHbQQHZBy3B
+
+Follow these steps to set up your database:
+
+- Download the knowledge networks from the link provided.
+- Import the knowledge networks into your database.
+- Make sure the database is running and accessible from the location where the Vue.js application will be deployed.
+- In the .env file, change the value of VUE_APP_ENDPOINT_URL_DB to your database URL.
+- Remember that the database URL must include the port if necessary. For example, if your database is running on localhost on port 7200, the URL would be http://localhost:7200.
+
+Once you have properly configured the database and set the URL to VUE_APP_ENDPOINT_URL_DB, your Vue.js application should be able to retrieve and use the data from the knowledge graphs.
+
 # Environment settings
 The environment variables are stored in a file called .env in the root of the project. To change the values, you must follow these steps:
 
