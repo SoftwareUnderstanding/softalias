@@ -29,12 +29,12 @@
       </div>
       <div v-if="!loading">
         <div class="list-groups" v-for="(index, rowIndex) in result" :key="index" :class="{selected: selectedRow === rowIndex}">
-          || Software: {{ index.grupo.value }}
-          || Source: {{ index.source.value }}
-          || Similarity {{ hasSimilarity(this.selected, index.grupo.value) }} %
-          <button @click="getMoreInfo(index, rowIndex)" style="margin-left: 3px;">Details</button>
+          <p><strong>Software:</strong> {{ extractIdFromUri(index.grupo.value) }}</p>
+          <p><strong>Source(s):</strong> {{ index.sources.value }}</p>
+          <p><strong>Similarity:</strong> {{ hasSimilarity(this.selected, index.grupo.value) }} %</p>
+          <button @click="getMoreInfo(index, rowIndex)" class="details-button">Details</button>
+        </div>
       </div>
-    </div>
   </div>
     </div>
     <div v-if="showMoreResults" class="results more-results">
@@ -102,6 +102,9 @@ export default {
   },
 },
   methods: {
+    extractIdFromUri(uri) {
+      return uri.substring(uri.lastIndexOf('/') + 1);
+    },
     filterSoftware() {
       if(this.input == ""){
         this.showDropdown = false;
@@ -135,12 +138,14 @@ export default {
     },
     async searchByName() {
       this.loading = true;
-      const query = `PREFIX schema: <https://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX prov: <http://www.w3.org/ns/prov#> SELECT ?alias ?grupo ?source ?num_reps WHERE { ?alias schema:name "${this.selected}" . ?alias <https://w3id.org/softalias/id_group> ?id_group . ?alias <https://w3id.org/softalias/number_of_repetitions> ?num_reps . ?grupo schema:identifier ?id_group . ?grupo rdf:type schema:SoftwareApplication . ?grupo prov:hadPrimarySource ?source } LIMIT 100`;
+      //const query = `PREFIX schema: <https://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX prov: <http://www.w3.org/ns/prov#> SELECT ?alias ?grupo ?source ?num_reps WHERE { ?alias schema:name "${this.selected}" . ?alias <https://w3id.org/softalias/id_group> ?id_group . ?alias <https://w3id.org/softalias/number_of_repetitions> ?num_reps . ?grupo schema:identifier ?id_group . ?grupo rdf:type schema:SoftwareApplication . ?grupo prov:hadPrimarySource ?source } LIMIT 100`;
+      const query = `PREFIX schema: <https://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX prov: <http://www.w3.org/ns/prov#> SELECT ?alias ?grupo (GROUP_CONCAT(?source;separator=", ") as ?sources) ?num_reps WHERE { ?alias schema:name "${this.selected}" . ?alias <https://w3id.org/softalias/id_group> ?id_group . ?alias <https://w3id.org/softalias/number_of_repetitions> ?num_reps . ?grupo schema:identifier ?id_group . ?grupo rdf:type schema:SoftwareApplication . ?grupo prov:hadPrimarySource ?source } GROUP BY ?alias ?grupo ?num_reps LIMIT 100`;
       const url = `${this.endpointUrl}?name=&infer=true&sameAs=true&query=${encodeURIComponent(query)}`;
       await axios.get(url)
       .then((response) => {
+        console.log(response);
         this.result = response.data.results.bindings;
-        this.mentionsCount = this.result[0].reps.value
+        this.mentionsCount = this.result[0].num_reps.value
         this.loading = false;
       })
       .catch((error) => {
@@ -220,11 +225,18 @@ li {
 .list-groups {
   display: flex; 
   justify-content: left; 
-  margin: 3px; 
+  margin: 0.5em 0;
+  font-size: 1.1em;
   padding: 3px; 
   background-color: rgb(252, 252, 236); 
   border-radius: 22px;
+
 }
+.details-button {
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
 div.selected {
   background-color: #C9E1FF;
   color: black;
