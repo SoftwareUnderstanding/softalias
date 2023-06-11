@@ -1,5 +1,5 @@
-<h1 align="center"> Deploying the Vue.js application </h1>.
-This document explains how to deploy the Vue.js application and how to configure the .env environment variables file.
+<h1 align="center"> Deploying the Vue.js application </h1>
+This document explains how to deploy the Vue.js application and how to configure the '.env' environment variables file.
 
 # Prerequisites
 To deploy this application, you must have the following tools and versions installed on your system:
