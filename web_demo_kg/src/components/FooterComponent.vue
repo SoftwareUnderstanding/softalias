@@ -4,7 +4,6 @@
         <p class="footer-line">Héctor López Valero & Daniel Garijo</p>
         <p class="footer-line">Built with Vue.js</p>
         <p class="footer-line">Latest revision May, 2023</p>
-        <p>&copy; 2023 Softalias: Grouping Software Mentions</p>
       </div>
       <div class="footer-logos">
         <img src="../assets/ingGroup.gif" alt="Logo 1" class="logo">
