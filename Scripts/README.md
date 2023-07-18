@@ -1,57 +1,37 @@
-<h1 align="center"> Deploying the Vue.js application </h1>
-This document explains how to deploy the Vue.js application and how to configure the '.env' environment variables file.
+# Description
+This project contains a set of Python scripts designed to manipulate and transform data for format unification and error correction. The initial data is provided in pkl format and is intended to be converted to a more manageable json format.
 
-# Prerequisites
-To deploy this application, you must have the following tools and versions installed on your system:
+A detailed description of the purpose of each script along with the recommended order of execution is provided below.
 
-- Node.js v18.16.0 NPM (comes bundled with Node.js)
-- Vue 3.3.8
+# Order of execution
 
-# Environment variables
-Environment variables are used to define values that vary between development, test, production, etc. environments. In this project, the following variables are used:
+- scriptPkl.py: This script converts pkl format files to json. Its function is to open the pkl file, load the data and dump it into a json file.
+- scriptJsonFormat.py: This script is responsible for transforming and organizing the data contained in several source json files (extracted from different locations). It applies the trust calculation between group and alias names and adds the number of repetitions and other relevant information.
+- scriptJsonFormatWithoutNull.py: Similar to scriptJsonFormat.py, but with an additional check to make sure the keys and values are not None before adding them to the final json.
+- scriptJsonFormatWithoutNullWithoutVoid.py: Similar to scriptJsonFormatWithoutNull.py, but with an additional check to make sure the alias is not empty before adding it to the final json.
+- scriptDeleteDuplicatedAlias.py: This script is used to remove duplicate aliases within the same group in json files. It checks the alias ids and ensures that there are no duplicates.
+- scriptJsonUpdateFormat.py: This script performs a number of formatting and cleanup operations on json files, such as replacing the value of certain fields, removing unnecessary fields, and removing trusted values.
+- scriptCheck.py: This script is used to check the consistency between data in CSV and JSON files. It identifies discrepancies and records them in a text file for later review.
 
-- VUE_APP_HOST: Specifies the hostname where the Vue.js application will be deployed. The default is localhost, which means that the application will run on your local machine. If you need to deploy it on another server, you must change this value to the hostname of that server.
-- PORT: This is the port on which the application will run. By default it is 9990, but it can be any port that is not currently in use on your system.
-- VUE_APP_ENDPOINT_URL_DB: This is the URL of your database endpoint. This is where the application will look for data. It should be changed to your database URL.
+Please follow the order provided to ensure correct data manipulation and transformation.
 
-# Configuring the database
-For the application to work properly, you will need to have a database configured with the appropriate knowledge networks.
+# Requirements
+These scripts require Python 3.7 or higher and the following Python libraries:
 
-The knowledge networks can be found at the following Zenodo link: https://zenodo.org/record/7988427#.ZHbQQHZBy3B
+- pandas
+- json
+- pickle
+- shutil
+- numpy
+- jaro (for Jaro-Winkler metric calculation)
 
-Follow these steps to set up your database:
+Please make sure you have them installed before running the scripts.
 
-- Download the knowledge networks from the link provided.
-- Import the knowledge networks into your database.
-- Make sure the database is running and accessible from the location where the Vue.js application will be deployed.
-- In the .env file, change the value of VUE_APP_ENDPOINT_URL_DB to your database URL.
-- Remember that the database URL must include the port if necessary. For example, if your database is running on localhost on port 7200, the URL would be http://localhost:7200.
+# Usage
+To run each script, use the following command in your terminal:
 
-Once you have properly configured the database and set the URL to VUE_APP_ENDPOINT_URL_DB, your Vue.js application should be able to retrieve and use the data from the knowledge graphs.
+"python <scriptname.py>"
 
-# Environment settings
-The environment variables are stored in a file called .env in the root of the project. To change the values, you must follow these steps:
+Be sure to replace <scriptname.py> with the actual name of the script.
 
-1. Open the '.env' file in your preferred text editor.
-2. Change the values of the variables to what you need for your environment.
-3. Save and close the '.env' file.
-4. Restart your application for the changes to take effect.
 
-# Running the application locally
-To run the application locally, follow these steps:
-
-1. Open a terminal in the root of the project.
-2. Run 'npm install' to install all the project dependencies.
-3. Configure your '.env' file as explained in the previous section.
-4. Run 'npm run serve' to start the application.
-5. The application should now be running on http://<VUE_APP_HOST>:<PORT>, for example http://localhost:9990.
-
-# Deploy the application to a server
-To deploy the application to a server, you will need to create a production version of the application and then transfer the files to your server. Here are the steps:
-
-1. Open a terminal in the root of the project.
-2. Run 'npm install' to install all the project dependencies.
-3. Configure your '.env' file as explained in the previous section.
-4. Run 'npm run build' to create a production version of the application. This will create a dist folder in your project with all the necessary files.
-5. Copy the 'dist' folder to your server. The exact location and method of doing this will depend on your server.
-6. On your server, you will need to configure your web server to serve the files in the 'dist' folder. This will also depend on your web server.
